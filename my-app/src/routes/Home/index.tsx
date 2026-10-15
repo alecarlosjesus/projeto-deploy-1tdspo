@@ -53,6 +53,7 @@ export default function Home() {
 
         //Executando a função
         loadingData();
+        
 
     }, []);
 
