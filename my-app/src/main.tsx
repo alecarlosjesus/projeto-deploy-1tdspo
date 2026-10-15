@@ -9,7 +9,8 @@ import EditarProdutos from './routes/EditarProdutos/index.tsx'
 import Produtos from './routes/Produtos/index.tsx'
 import Error from './routes/Error/index.tsx'
 import CadProduto from './routes/CadProduto/index.tsx';
-import { NomeLojaProvider } from './provider/nomeLojaProvider.tsx';
+import { NomeLojaProvider } from './provider/NomeLojaProvider.tsx';
+
 
 const router = createBrowserRouter([
   {

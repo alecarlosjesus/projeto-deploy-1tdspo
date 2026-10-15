@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { TipoProduto } from "../../types/types";
 import { Link, useNavigate } from "react-router";
-import ProdutoCard from "../../components/ProdutoCard";
+
 
 export default function Produtos() {
   //Modificar o título da página;
@@ -60,13 +60,13 @@ export default function Produtos() {
   return (
     <main style={{ padding: "20px" }}>
       <h2>Produtos</h2>
-      <div className="flex">
+    {/*  <div className="flex">
         {produtos.map((p) => (
           <ProdutoCard produto={p}  />
         ))}
       </div>
 
-      {/* <div className="flex">
+       <div className="flex">
         {produtos.map((p) => (
           <ProdutoCard
             nome={p.nome}
@@ -77,7 +77,7 @@ export default function Produtos() {
         ))}
       </div> */}
 
-      {/* <table border={1} cellPadding={10} style={{ width: '100%', borderCollapse: 'collapse' }}>
+   <table border={1} cellPadding={10} style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
                     <tr style={{ backgroundColor: '#2c3e50', color: '#ffffff' }}>
                         <th>ID</th>
@@ -97,7 +97,7 @@ export default function Produtos() {
                             <td>{p.estoque}</td>
                             <td><img src={p.avatar} alt={p.nome} width={60} height={60} style={{ objectFit: 'cover' }} /></td>
                             <td>
-                                <Link to={`/editar-produtos/${p.id}`}>Editar</Link> | <Link to="#" onClick={()=> handleDelete(p.id)}>Excluir</Link>
+                                <Link to={`/editar-produtos/${p.id}`}>Editar</Link> | <Link to="#" onClick={()=> handleDelete(p.id.toString())}>Excluir</Link>
                             </td>
                         </tr>
                     ))}
@@ -107,7 +107,7 @@ export default function Produtos() {
                         <td colSpan={6}>Quantidade de produtos - {produtos.length}</td>
                     </tr>
                 </tfoot>
-            </table> */}
+            </table> 
     </main>
   );
 }
