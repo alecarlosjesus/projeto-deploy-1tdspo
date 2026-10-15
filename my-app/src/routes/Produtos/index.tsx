@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { TipoProduto } from "../../types/types";
 import { Link, useNavigate } from "react-router";
 
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Produtos() {
   //Modificar o título da página;
@@ -17,7 +18,7 @@ export default function Produtos() {
 
     const carregaProdutos = async () => {
       try {
-        const resposta = await fetch("http://localhost:3001/produtos");
+        const resposta = await fetch(API_URL);
 
         if (!resposta.ok) {
           throw new Error(
@@ -25,7 +26,12 @@ export default function Produtos() {
           );
         }
 
-        const data: TipoProduto[] = await resposta.json();
+        const resultado = await resposta.json();
+        const{data,status} = resultado;
+
+        if(status === "error") {
+          throw new Error(`Erro na listagem de produtos: ${status}`);
+        }
         console.log(data);
         setProdutos(data);
       } catch (error) {
