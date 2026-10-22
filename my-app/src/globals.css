@@ -1,30 +1,430 @@
 @import "tailwindcss";
 
-
 @layer base {
-  
-     *{
-          box-sizing:border-box;
-     }
+  * {
+    box-sizing: border-box;
+  }
 
-     body{
-          @apply m-0 min-w-80 font-sans;
-     }
+  body {
+    @apply m-0 min-w-80 font-sans;
+  }
 
-     buttons,input{
-          font:inherit;
-     }
+  buttons,
+  input {
+    font: inherit;
+  }
 }
 
-@layer components{
-     .container{
-          @apply flex min-h-screen min-w-screen flex-col;
-          @apply bg-slate-100 text-slate-900;
-          @apply transition-colors duration-300;
+@layer components {
+  .container {
+    @apply flex min-h-screen min-w-screen flex-col;
+    @apply bg-slate-100 text-slate-900;
+    @apply transition-colors duration-300;
+  }
 
-     }
+  .container.dark {
+    @apply bg-slate-950 text-slate-100;
+  }
 
-     .container.dark{
-          @apply bg-slate-950 text-slate-100;
-     }
+  .cabecalho {
+    @apply w-full bg-indigo-700 text-white shadow-lg;
+    @apply transition-colors duration-300;
+  }
+  /* Altera o cabeçalho quando existe um ancestral dark. */
+  .dark .cabecalho {
+    @apply border-b border-slate-800 bg-slate-900;
+  }
+  /* Centraliza e organiza os elementos internos. */
+  .cabecalho-conteudo {
+    @apply mx-auto flex w-full max-w-7xl;
+    @apply flex-col items-center justify-between;
+    @apply gap-5 px-4 py-5 md:flex-row;
+  }
+  /* Centraliza a marca no celular. */
+  .marca {
+    @apply text-center md:text-left;
+  }
+
+  /* Estiliza o nome do sistema. */
+  .marca h1 {
+    @apply text-xl font-bold tracking-tight sm:text-2xl;
+  }
+  /* Estiliza a descrição no tema claro. */
+  .marca p {
+    @apply mt-1 text-xs text-indigo-100 sm:text-sm;
+  }
+  /* Altera a descrição no tema escuro. */
+  .dark .marca p {
+    @apply text-slate-400;
+  }
+  /* Organiza os links e permite quebra de linha. */
+  .menu {
+    @apply flex flex-wrap items-center justify-center;
+    @apply gap-1 sm:gap-2;
+  }
+
+  /* Transforma cada link em um item clicável. */
+  .menu a {
+    @apply rounded-lg px-3 py-2 text-sm font-semibold;
+    @apply text-white transition-colors hover:bg-white/15;
+    @apply focus:outline-none focus:ring-2 focus:ring-white;
+  }
+  /* Define o hover do menu no tema escuro. */
+  .dark .menu a {
+    @apply hover:bg-slate-800;
+  }
+  /* Estiliza o botão que alterna o tema. */
+  .botao-tema {
+    @apply flex cursor-pointer items-center gap-2;
+    @apply rounded-full border border-white/40;
+    @apply bg-white/10 px-4 py-2 text-sm font-semibold;
+    @apply text-white transition-colors hover:bg-white/20;
+    @apply focus:outline-none focus:ring-2 focus:ring-white;
+
+  }
+
+  /* Ajusta o botão para o tema escuro. */
+.dark .botao-tema {
+@apply border-slate-600 bg-slate-800;
+@apply hover:bg-slate-700;
+}
+
+/* Centraliza o conteúdo e cria espaçamento responsivo. */
+.pagina {
+@apply mx-auto w-full max-w-7xl flex-1;
+@apply px-4 py-8 sm:px-6 lg:px-8;
+}
+/* Separa o título do restante do conteúdo. */
+.titulo-pagina {
+@apply mb-6;
+}
+/* Estiliza o texto pequeno acima do título. */
+.titulo-pagina p {
+@apply mb-1 text-sm font-bold uppercase;
+@apply tracking-widest text-indigo-600;
+}
+/* Ajusta o texto pequeno no tema escuro. */
+.dark .titulo-pagina p {
+@apply text-indigo-400;
+}
+
+/* Estiliza o título principal da página. */
+.titulo-pagina h2 {
+@apply text-3xl font-bold tracking-tight text-slate-900;
+}
+/* Deixa o título branco no tema escuro. */
+.dark .titulo-pagina h2 {
+@apply text-white;
+}
+/* Cria o card reutilizado em diferentes páginas. */
+.painel {
+@apply rounded-2xl border border-slate-200;
+@apply bg-white p-5 shadow-sm sm:p-6;
+@apply transition-colors duration-300;
+}
+/* Ajusta o painel para o tema escuro. */
+.dark .painel {
+@apply border-slate-800 bg-slate-900;
+}
+
+/* Usa uma coluna no celular e duas no computador. */
+.pesquisa {
+@apply grid gap-5;
+@apply lg:grid-cols-[1fr_1.5fr] lg:items-end;
+}
+/* Destaca o título interno do painel. */
+.pesquisa h3 {
+@apply text-xl font-bold;
+}
+/* Define a cor da explicação no tema claro. */
+.pesquisa p {
+@apply mt-1 text-sm text-slate-600;
+}
+/* Define a cor da explicação no tema escuro. */
+.dark .pesquisa p {
+@apply text-slate-400;
+}
+
+/* Organiza label, campo e botão da pesquisa. */
+.campo-pesquisa {
+@apply grid gap-2;
+@apply sm:grid-cols-[1fr_auto] sm:items-end;
+}
+/* Faz o label ocupar as duas colunas no tablet. */
+.campo-pesquisa label {
+@apply text-sm font-semibold sm:col-span-2;
+}
+/* Estiliza campos de pesquisa e formulário. */
+.campo-pesquisa input,
+.campo-formulario input {
+@apply w-full rounded-lg border border-slate-300;
+@apply bg-white px-4 py-3 text-slate-900 outline-none;
+@apply transition focus:border-indigo-500;
+@apply focus:ring-4 focus:ring-indigo-100;
+}
+
+/* Ajusta os campos para o tema escuro. */
+.dark .campo-pesquisa input,
+.dark .campo-formulario input {
+@apply border-slate-700 bg-slate-950 text-slate-100;
+@apply focus:border-indigo-400 focus:ring-indigo-950;
+}
+/* Estiliza os botões principais. */
+.campo-pesquisa button,
+.forms button {
+@apply cursor-pointer rounded-lg bg-indigo-600;
+@apply px-5 py-3 font-bold text-white transition;
+@apply hover:bg-indigo-700 focus:outline-none;
+@apply focus:ring-4 focus:ring-indigo-200;
+@apply disabled:cursor-not-allowed disabled:opacity-60;
+}
+/* Ajusta os botões principais no tema escuro. */
+.dark .campo-pesquisa button,
+.dark .forms button {
+@apply bg-indigo-500 hover:bg-indigo-400;
+@apply focus:ring-indigo-950;
+}
+
+/* Destaca o usuário encontrado no tema claro. */
+.resultado-pesquisa {
+@apply mt-5 rounded-lg border border-emerald-200;
+@apply bg-emerald-50 px-4 py-3 text-emerald-800;
+}
+/* Ajusta o resultado para o tema escuro. */
+.dark .resultado-pesquisa {
+@apply border-emerald-900 bg-emerald-950;
+@apply text-emerald-300;
+}
+/* Cria uma grade responsiva para os usuários. */
+.grade-usuarios {
+@apply mt-6 grid list-none gap-4 p-0;
+@apply sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+}
+
+
+/* Estiliza cada usuário como um card. */
+.card-usuario {
+@apply flex items-center gap-4 rounded-xl;
+@apply border border-slate-200 bg-white p-4 shadow-sm;
+@apply transition hover:-translate-y-1 hover:shadow-md;
+}
+/* Ajusta o card para o tema escuro. */
+.dark .card-usuario {
+@apply border-slate-800 bg-slate-900;
+}
+/* Transforma a imagem em um avatar circular. */
+.card-usuario img {
+@apply h-14 w-14 rounded-full border-2;
+@apply border-indigo-100 object-cover;
+}
+/* Ajusta a borda do avatar no tema escuro. */
+.dark .card-usuario img {
+@apply border-indigo-900;
+}
+/* Organiza nome e id em uma coluna. */
+.card-usuario div {
+@apply flex min-w-0 flex-col;
+}
+/* Impede que nomes longos quebrem o card. */
+.card-usuario strong {
+@apply truncate;
+}
+/* Estiliza o id do usuário no tema claro. */
+.card-usuario span {
+@apply text-sm text-slate-500;
+}
+/* Ajusta o id para o tema escuro. */
+.dark .card-usuario span {
+@apply text-slate-400;
+}
+
+     /* Adiciona rolagem horizontal em telas estreitas. */
+.tabela-responsiva {
+@apply overflow-x-auto p-0;
+}
+/* Faz a tabela ocupar o painel. */
+.tbProduto {
+@apply w-full min-w-3xl border-collapse text-left;
+}
+/* Estiliza o cabeçalho da tabela no tema claro. */
+.tbProduto th {
+@apply bg-indigo-600 px-4 py-3;
+@apply text-xs font-bold uppercase tracking-wider;
+@apply text-white;
+}
+/* Ajusta o cabeçalho da tabela no tema escuro. */
+.dark .tbProduto th {
+@apply bg-indigo-950 text-indigo-100;
+}
+
+/* Cria divisões e espaçamento nas células. */
+.tbProduto td {
+@apply border-t border-slate-200 px-4 py-3 text-sm;
+}
+/* Ajusta as bordas no tema escuro. */
+.dark .tbProduto td {
+@apply border-slate-800;
+}
+/* Destaca a linha apontada pelo mouse. */
+.tbProduto tbody tr {
+@apply transition-colors hover:bg-indigo-50;
+}
+/* Ajusta o destaque da linha no tema escuro. */
+.dark .tbProduto tbody tr {
+@apply hover:bg-slate-800/80;
+}
+
+/* Estiliza o rodapé da tabela. */
+.tbProduto tfoot td {
+@apply bg-slate-50 font-semibold text-slate-600;
+}
+/* Ajusta o rodapé da tabela no tema escuro. */
+.dark .tbProduto tfoot td {
+@apply bg-slate-950 text-slate-400;
+}
+/* Padroniza a imagem de cada produto. */
+.avatar-produto {
+@apply h-12 w-12 rounded-lg border;
+@apply border-slate-200 object-cover;
+}
+/* Ajusta a borda da imagem no tema escuro. */
+.dark .avatar-produto {
+@apply border-slate-700;
+}
+
+     /* Destaca a quantidade em estoque. */
+.estoque {
+@apply inline-flex min-w-9 justify-center rounded-full;
+@apply bg-emerald-100 px-3 py-1;
+@apply font-bold text-emerald-700;
+}
+/* Ajusta o estoque para o tema escuro. */
+.dark .estoque {
+@apply bg-emerald-950 text-emerald-300;
+}
+
+/* Evita a quebra dos botões de ação. */
+.acoes {
+@apply whitespace-nowrap;
+}
+/* Define o formato comum dos dois botões. */
+.acoes a,
+.acoes button {
+@apply mx-1 inline-flex cursor-pointer;
+@apply rounded-lg p-2 text-lg transition-colors;
+}
+/* Usa azul no botão de edição. */
+.acoes .editar {
+@apply bg-indigo-100 text-indigo-700;
+@apply hover:bg-indigo-200;
+}
+/* Ajusta o botão de edição no tema escuro. */
+.dark .acoes .editar {
+@apply bg-indigo-950 text-indigo-300;
+@apply hover:bg-indigo-900;
+}
+
+     /* Usa vermelho no botão de exclusão. */
+.acoes .excluir {
+@apply border-0 bg-red-100 text-red-700;
+@apply hover:bg-red-200;
+}
+/* Ajusta o botão de exclusão no tema escuro. */
+.dark .acoes .excluir {
+@apply bg-red-950 text-red-300;
+@apply hover:bg-red-900;
+}
+
+/* Reduz a largura máxima das páginas de formulário. */
+.pagina-formulario {
+@apply max-w-3xl;
+}
+/* Cria o card do formulário no tema claro. */
+.forms {
+@apply rounded-2xl border border-slate-200;
+@apply bg-white p-5 shadow-sm sm:p-8;
+@apply transition-colors duration-300;
+}
+/* Ajusta o card do formulário no tema escuro. */
+.dark .forms {
+@apply border-slate-800 bg-slate-900;
+}
+/* Remove a borda padrão e separa os campos. */
+.forms fieldset {
+@apply grid gap-5 border-0 p-0;
+}
+
+/* Estiliza o título interno do formulário. */
+.forms legend {
+@apply mb-6 w-full border-b border-slate-200;
+@apply pb-4 text-xl font-bold;
+}
+/* Ajusta a borda do legend no tema escuro. */
+.dark .forms legend {
+@apply border-slate-700;
+}
+/* Organiza label, campo e mensagem em coluna. */
+.campo-formulario {
+@apply grid gap-2;
+}
+/* Destaca o nome do campo. */
+.campo-formulario label {
+@apply text-sm font-semibold;
+}
+
+/* Estiliza o seletor de arquivo. */
+.campo-formulario input[type="file"] {
+@apply cursor-pointer;
+@apply file:mr-4 file:rounded-md file:border-0;
+@apply file:bg-indigo-100 file:px-4 file:py-2;
+@apply file:font-semibold file:text-indigo-700;
+@apply hover:file:bg-indigo-200;
+}
+/* Ajusta o seletor de arquivo no tema escuro. */
+.dark .campo-formulario input[type="file"] {
+@apply file:bg-indigo-950 file:text-indigo-300;
+@apply hover:file:bg-indigo-900;
+}
+/* Apresenta mensagens de validação em vermelho. */
+.mensagem-erro {
+@apply text-sm font-semibold text-red-600;
+}
+
+     /* Clareia a mensagem no tema escuro. */
+.dark .mensagem-erro {
+@apply text-red-400;
+}
+/* Informa que a imagem ainda está sendo processada. */
+.mensagem-leitura {
+@apply text-sm font-semibold text-indigo-600;
+}
+/* Ajusta a mensagem de leitura no tema escuro. */
+.dark .mensagem-leitura {
+@apply text-indigo-400;
+}
+/* Cria a área que apresenta a imagem selecionada. */
+.preview {
+@apply mt-4 rounded-xl border border-dashed;
+@apply border-slate-300 bg-slate-50 p-4 text-center;
+}
+
+/* Ajusta a prévia para o tema escuro. */
+.dark .preview {
+@apply border-slate-700 bg-slate-950;
+}
+/* Limita e centraliza a imagem da prévia. */
+.preview img {
+@apply mx-auto mt-3 max-h-64 max-w-full;
+@apply rounded-lg object-contain;
+}
+/* Estiliza o rodapé no tema claro. */
+.rodape {
+@apply mt-auto w-full bg-slate-900;
+@apply px-4 py-5 text-center text-sm text-slate-300;
+}
+/* Escurece o rodapé quando o tema dark está ativo. */
+.dark .rodape {
+@apply border-t border-slate-800 bg-black;
+}
+/* Fecha o @layer components iniciado na seção 12. */
 }
