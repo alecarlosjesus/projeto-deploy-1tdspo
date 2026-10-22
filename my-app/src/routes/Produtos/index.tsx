@@ -49,15 +49,17 @@ export default function Produtos() {
       return;
     }
 
-     try { 
-      const response = await fetch(API_URL, { 
-        method: "POST", 
-        headers: { 
-          "Content-Type": "text/plain;charset=utf-8", 
-        }, 
-        body: JSON.stringify({ 
-          action: "DELETE",    id: id, }), 
-      }); 
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify({
+          action: "DELETE",
+          id: id,
+        }),
+      });
 
       if (!response.ok) {
         throw new Error(
@@ -65,33 +67,34 @@ export default function Produtos() {
         );
       }
 
-       const resultado = await response.json(); 
- 
-      if (resultado.status === "error") { 
-        throw new Error(resultado.message); 
-      } 
+      const resultado = await response.json();
+
+      if (resultado.status === "error") {
+        throw new Error(resultado.message);
+      }
 
       //MSG de SUCESSO
       alert("O produto foi excluído com sucesso!");
       //Recarregar a lista de produtos após a exclusão, utilizando o filtro para remover o produto excluído do estado
-      setProdutos((prevProdutos) => prevProdutos.filter((produto) => produto.id.toString() !== id));
-
+      setProdutos((prevProdutos) =>
+        prevProdutos.filter((produto) => produto.id.toString() !== id),
+      );
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <main style={{ padding: "20px" }}>
-      <h2>Produtos</h2>
+    <main className="pagina produtos">
+      <div className="titulo-pagina">
+        <p>Gerenciamento</p>
+        <h2>Produtos cadastrados</h2>
+      </div>
 
-      <table
-        border={1}
-        cellPadding={10}
-        style={{ width: "100%", borderCollapse: "collapse" }}
-      >
+    <div className="painel tabela-responsiva">
+      <table className="tbProduto">
         <thead>
-          <tr style={{ backgroundColor: "#2c3e50", color: "#ffffff" }}>
+          <tr>
             <th>ID</th>
             <th>Nome</th>
             <th>Preço</th>
@@ -105,20 +108,12 @@ export default function Produtos() {
             <tr key={p.id}>
               <td>{p.id}</td>
               <td>{p.nome}</td>
-              <td>{p.preco}</td>
-              <td>{p.estoque}</td>
-              <td>
-                <img
-                  src={p.avatar}
-                  alt={p.nome}
-                  width={60}
-                  height={60}
-                  style={{ objectFit: "cover" }}
-                />
-              </td>
-              <td>
-                <Link to={`/editar-produtos/${p.id}`}>Editar</Link> |{" "}
-                <Link to="#" onClick={() => handleDelete(p.id.toString())}>
+              <td>{Number(p.preco.toFixed(2)).toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}</td>
+              <td> <span className="estoque">{p.estoque}</span> </td>
+              <td> <img className="avatar-produto" src={p.avatar} alt={p.nome} /> </td>
+              <td className="acoes">
+                <Link className="editar"  aria-label={`Editar  ${p.nome}`} to={`/editar-produtos/${p.id}`}>Editar</Link> |{" "}
+                <Link className="excluir" aria-label={`Excluir ${p.nome}`} to="#" onClick={() => handleDelete(p.id.toString())}>
                   Excluir
                 </Link>
               </td>
@@ -131,6 +126,8 @@ export default function Produtos() {
           </tr>
         </tfoot>
       </table>
+    </div>
+
     </main>
   );
 }
