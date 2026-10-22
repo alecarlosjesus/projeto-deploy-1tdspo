@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router";
 import type { TipoProdutoJ } from "../../types/types";
 import { useForm } from "react-hook-form";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function EditarProdutos() {
   //Modificar o título da página;
   document.title = "Editar Produtos";
@@ -23,17 +25,23 @@ export default function EditarProdutos() {
 
             try {
 
-                const resposta = await fetch(`http://localhost:3001/produtos/${id}`);
+                const resposta = await fetch(`${API_URL}?id=${id}`);
 
                 if (!resposta.ok) {
                     throw new Error(`Produto não encontrado: ${resposta.status} - ${resposta.statusText}`)
                 }
 
-                const data: TipoProdutoJ = await resposta.json();
-                console.log(data);
-                reset(data);
+                 const resultado = await resposta.json(); 
+ 
+                if (resultado.status === "error") { 
+                  throw new Error(resultado.message); 
+                } 
                 
+                const dados: TipoProdutoJ = resultado.data;
 
+                console.log(dados);
+                reset(dados);
+                
             } catch (error) {
                 console.error(error);
             }
@@ -47,16 +55,22 @@ export default function EditarProdutos() {
     const handleUpdate = async (data:TipoProdutoJ)=>{
       try {
 
-        const response = await fetch(`http://localhost:3001/produtos/${data.id}` , {
-          method:"PUT",
+        const response = await fetch(API_URL , {
+          method:"POST",
           headers:{
-            "Content-Type": "application/json"
+            "Content-Type": "text/plain;charset=utf-8"
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify({action: "PUT", ...data})
         });
 
               if (!response.ok) {
                   throw new Error(`A atualização falhou: ${response.status} - ${response.statusText}`)
+              }
+
+              const resultado = await response.json();
+
+              if (resultado.status === "error") {
+                  throw new Error(`A atualização falhou: ${resultado.message}`);
               }
 
               //MSG de SUCESSO

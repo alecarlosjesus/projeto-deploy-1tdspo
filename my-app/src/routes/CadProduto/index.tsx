@@ -3,6 +3,8 @@ import type { TipoProdutoJ } from "../../types/types";
 import { useNavigate } from "react-router";
 import { useState, type ChangeEvent } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function CadProduto() {
 
       //Modificar o título da página;
@@ -29,18 +31,23 @@ const imagem = watch("avatar");
           alert("Selecione uma imagem para o produto!");
         }
 
-
-
-        const response = await fetch(`http://localhost:3001/produtos/` , {
+        console.log("OBJETO: ",data);
+        const response = await fetch(API_URL , {
           method:"POST",
           headers:{
-            "Content-Type": "application/json"
+            "Content-Type": "text/plain;charset=utf-8"
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify({action: "POST", ...data})
         });
 
               if (!response.ok) {
                   throw new Error(`O cadastro falhou: ${response.status} - ${response.statusText}`)
+              }
+
+              const resultado = await response.json();
+
+              if (resultado.status === "error") {
+                  throw new Error(`O cadastro falhou: ${resultado.message}`);
               }
 
               //MSG de SUCESSO
