@@ -22,10 +22,11 @@ export type TipoProdutoJ = {
 
 export type Tema = 'light' | 'dark';
 
-export type LayoutProps = {
+export type TipoTemaContext = {
   tema: Tema;
+  alternarTema: ()=> void;
 };
 
-export type NomeLojaProviderProps = {
-children: ReactNode;
+export type TipoTemaProps = {
+    children: ReactNode;
 }
