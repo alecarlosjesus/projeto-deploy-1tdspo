@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Contador } from "../../components/Contador";
 import type { TipoUsuarioGit } from "../../types/types";
 
 export default function Home() {
